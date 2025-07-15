@@ -45,8 +45,3 @@ bool ShootBullets(Character *c){
   return false;
 }
 
-void DrawBullet(Character *c){
-  DrawCircleV(c -> position, 10, WHITE);
-}
-
-

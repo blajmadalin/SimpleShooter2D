@@ -5,12 +5,10 @@
 #include "character.h"
 
 typedef struct Bullet{
-  int velocity;
+  Vector2 velocity;
   Vector2 position;
   float radius;
   bool active;
-  std::string direction;
-  
 }Bullet;
 
 extern std::vector<Bullet> Bullets;
@@ -20,9 +18,11 @@ Bullet InitBullet(Character *c);
 
 void CreateBullet(Character *c);
 
-void DrawBullet(Bullet bullet);
+void DrawBullet();
 
-void UpdateBullets();
+void UpdateBullets(float deltaTime);
+
+void DestroyBullet(int index);
 
 void DeleteBullet();
 
