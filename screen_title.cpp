@@ -28,9 +28,9 @@ void DrawTitleScreen(){
 }
 
 void UpdateTitleScreen(){
-  if(IsGestureDetected(GESTURE_TAP)){
+  if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
       finishScreen = 1;  
-      }
+  }
 }
 
 void UnloadTitleScreen(){

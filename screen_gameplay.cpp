@@ -6,7 +6,10 @@
 
 Character player;
 
+static int finishScreen = 1;
+
 int score = 0;
+int lastScoreMilestone = 0;
 float lastKillTime = 0.0f;
 
 //enemy spawn tweaks
@@ -15,9 +18,15 @@ float spawnInterval = 2.0f;
 
 void InitGameplayScreen(){
   InitCharacter(&player);
+  score = 0;
+  lastKillTime = 0.0f;
+  spawnInterval = 2.0f;
+  enemySpawntimer = 0;
+  finishScreen = 1;
 }
 
-void CheckCollisions(){
+void CheckCollisions(float deltaTime){
+  //collision between enemies and bullets
   for(int i = 0; i < Bullets.size(); i ++){
     for(int j = 0; j < Enemies.size(); j ++){
       if(CheckCollisionCircles(Bullets[i].position, Bullets[i].radius, Enemies[j].position, Enemies[j].radius)){
@@ -33,15 +42,32 @@ void CheckCollisions(){
       }
     }
   }
+
+  //collision between player and Enemies
+  for(int i = 0; i < Enemies.size(); i ++){
+     if(CheckCollisionCircles(player.position, player.radius, Enemies[i].position, Enemies[i].radius)){
+       player.health -= 10 * deltaTime;
+
+     }
+  }
 }
 
-
 void UpdateGameplayScreen(){
-CheckCollisions();
-float deltaTime = GetFrameTime();
 
-//Check colisions
+  if(player.health <= 0){
+    finishScreen = 2;
+  }
+//Calculating deltaTime;
+  float deltaTime = GetFrameTime();
+
+//Checking collisions between entities on screen  
+  CheckCollisions(deltaTime);
+
+
+//Updating entities;
   UpdateCharacter(&player);
+  UpdateBullets(deltaTime);
+  UpdateEnemies(&player);
 
   if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
     CreateBullet(&player);
@@ -52,15 +78,17 @@ float deltaTime = GetFrameTime();
     enemySpawntimer = 0.0f;
   }
 
-  UpdateBullets(deltaTime);
+  if(score >= (lastScoreMilestone + 5000)){
+    spawnInterval -= 0.5f;
+    lastScoreMilestone += 5000;
+    ChangeSpeed();
+  }
+
+
 }
 
-void DrawGameplayScreen(){
-  UpdateGameplayScreen();
-  
+void DrawGameplayScreen(){  
   enemySpawntimer += GetFrameTime();
-
-  ClearBackground(BLACK);
 
   DrawRectangle(0, 0, screenWidth, screenHeight, BLACK); 
   DrawCharacter(&player);
@@ -76,4 +104,12 @@ void DrawGameplayScreen(){
   DrawBullet();
   DrawEnemy();
 
+}
+
+void UnloadGameplayScreen(){
+  //lol
+}
+
+int FinishGameplayScreen(){
+  return finishScreen;
 }

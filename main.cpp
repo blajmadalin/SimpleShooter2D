@@ -22,8 +22,7 @@ int main() {
     return 0;
 }
 
-static void UpdateDraw(){
-  //Change screens - add restart screen or something 
+static void UpdateDraw(){ 
   if(currentScreen == TITLE){
     UpdateTitleScreen();
 
@@ -31,6 +30,25 @@ static void UpdateDraw(){
       InitGameplayScreen();
       UnloadTitleScreen();
       currentScreen = GAMEPLAY;
+    }
+  }
+
+  else if(currentScreen == GAMEPLAY){
+    UpdateGameplayScreen();
+
+    if(FinishGameplayScreen() == 2){
+      InitEndScreen();
+      UnloadGameplayScreen();
+      currentScreen = END;
+    }
+  }
+
+  else if(currentScreen == END){
+    UpdateEndScreen();
+    if(FinishEndScreen() == 1){
+      UnloadEndScreen();
+      currentScreen = GAMEPLAY;
+      InitGameplayScreen();
     }
   }
 
@@ -43,7 +61,7 @@ static void UpdateDraw(){
         {
             case TITLE: DrawTitleScreen(); break;
             case GAMEPLAY: DrawGameplayScreen(); break;
-           // case ENDING: DrawEndingScreen(); break;
+            case END: DrawEndScreen(); break;
             default: break;
         }
     EndDrawing();

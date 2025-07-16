@@ -3,9 +3,10 @@
 
 #include "raylib.h"
 #include <vector>
+#include "character.h"
 
 typedef struct Enemy{
-  Vector2 velocity;
+  float speed;
   Vector2 position;
   int health;
   float radius;
@@ -18,8 +19,9 @@ extern std::vector<Enemy> Enemies;
 Enemy InitEnemy();
 void CreateEnemy();
 void DrawEnemy(); 
+void ChangeSpeed();
 void DeleteEnemy(int index);
-void UpdateEnemy();
+void UpdateEnemies(Character *c);
 
 
 #endif // ENEMY.H

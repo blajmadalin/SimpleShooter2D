@@ -6,6 +6,7 @@
 void InitCharacter(Character *c){
   c -> position = (Vector2){100, 100};
   c -> health = 100;
+  c -> radius = 20;
   c -> moveSpeed = 6;
   c -> direction = "LEFT";
 }
@@ -33,7 +34,15 @@ void UpdateCharacter(Character *c){
 }
 
 void DrawCharacter(Character *c){
-  DrawCircleV(c -> position, 20, BLUE);
+  //Drawing player;
+  DrawCircleV(c -> position, c -> radius, BLUE);
+
+  //Drawing player health;
+  const char* healthText =TextFormat("Health: %d", c -> health); 
+  int padding = 20;
+  int fontSize = 24;
+ 
+  DrawText(healthText, padding, padding, fontSize, WHITE);
 }
 
 bool ShootBullets(Character *c){

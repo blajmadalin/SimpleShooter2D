@@ -5,6 +5,7 @@
 
 typedef struct Character{
   Vector2 position;
+  float radius;
   int health;
   int moveSpeed;
   std::string direction;
