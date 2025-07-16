@@ -34,7 +34,6 @@ void UpdateCharacter(Character *c){
 
 void DrawCharacter(Character *c){
   DrawCircleV(c -> position, 20, BLUE);
-  DrawText(c -> direction.c_str(), 0, 0, 24, WHITE);
 }
 
 bool ShootBullets(Character *c){

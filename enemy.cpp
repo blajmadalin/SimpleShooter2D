@@ -2,6 +2,7 @@
 #include "enemy.h"
 #include <vector>
 #include <random>
+#include "screens.h"
 
 //Vector containing all the enemies on screen
 std::vector<Enemy> Enemies;
@@ -9,8 +10,8 @@ std::vector<Enemy> Enemies;
 //Declaration for random nr generator
 std::random_device rd;
 std::mt19937 gen(rd());
-std::uniform_int_distribution<> distribx(200, 1920);
-std::uniform_int_distribution<> distriby(200, 1080);
+std::uniform_int_distribution<> distribx(200, screenWidth);
+std::uniform_int_distribution<> distriby(200, screenHeight);
 
 Enemy InitEnemy(){
   Enemy enemy;

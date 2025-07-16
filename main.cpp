@@ -2,8 +2,8 @@
 #include "screens.h"
 
 GameScreen currentScreen = TITLE;
-int screenWidth = 1920;
-int screenHeight = 1080;
+int screenWidth = 800;
+int screenHeight = 600;
 
 static void UpdateDraw();
 
